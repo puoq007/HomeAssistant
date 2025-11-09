@@ -1,0 +1,67 @@
+2025-10-31 11:24:44.701 WARNING (Recorder) [homeassistant.components.recorder.util] Ended unfinished session (id=24 from 2025-10-28 06:07:01.486608)
+2025-10-31 11:24:45.643 WARNING (MainThread) [homeassistant.helpers.config_validation] The 'include' option near /config/configuration.yaml:47 is deprecated, please remove it from your configuration
+2025-10-31 11:25:46.361 WARNING (MainThread) [aioesphomeapi.reconnect_logic] Can't connect to ESPHome API for project @ 192.168.31.229: Timeout while connecting to [AddrInfo(family=<AddressFamily.AF_INET: 2>, type=<SocketKind.SOCK_STREAM: 1>, proto=6, sockaddr=IPv4Sockaddr(address='192.168.31.229', port=6053))] (TimeoutAPIError)
+2025-10-31 11:29:08.959 WARNING (MainThread) [aioesphomeapi.connection] fG9QUTw8MeaGaYSBsjaS+5dgxjesqhOT6jov0PNgx8k=: Connection error occurred: Timeout while resolving IP address for ['fG9QUTw8MeaGaYSBsjaS+5dgxjesqhOT6jov0PNgx8k=']
+2025-10-31 11:33:49.738 WARNING (MainThread) [aioesphomeapi.connection] 7XjsfolDsvbRqmP20dTp9oYv5dp2BYwaLB5RNFDAW3Q=: Connection error occurred: Timeout while resolving IP address for ['7XjsfolDsvbRqmP20dTp9oYv5dp2BYwaLB5RNFDAW3Q=']
+2025-10-31 13:29:14.328 ERROR (Recorder) [homeassistant.components.recorder.util] Error executing query: (MySQLdb.OperationalError) (2013, 'Lost connection to server during query')
+[SQL: SELECT event_types.event_type_id, event_types.event_type 
+FROM event_types 
+WHERE event_types.event_type IN (%s)]
+[parameters: ('homeassistant_stop',)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-31 13:29:14.436 ERROR (Recorder) [homeassistant.components.recorder.util] Error executing query: Can't reconnect until invalid transaction is rolled back.  Please rollback() fully before proceeding (Background on this error at: https://sqlalche.me/e/20/8s2b)
+2025-10-31 13:29:14.537 ERROR (Recorder) [homeassistant.components.recorder.util] Error executing query: Can't reconnect until invalid transaction is rolled back.  Please rollback() fully before proceeding (Background on this error at: https://sqlalche.me/e/20/8s2b)
+2025-10-31 13:29:14.537 ERROR (Recorder) [homeassistant.components.recorder.core] SQLAlchemyError error processing task <Event homeassistant_stop[L]>
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/components/recorder/core.py", line 899, in _process_one_task_or_event_or_recover
+    self._process_one_event(task)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/recorder/core.py", line 1048, in _process_one_event
+    self._process_non_state_changed_event_into_session(event)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/recorder/core.py", line 1063, in _process_non_state_changed_event_into_session
+    elif event_type_id := event_type_manager.get(event.event_type, session, True):
+                          ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/recorder/table_managers/event_types.py", line 61, in get
+    return self.get_many((event_type,), session)[event_type]
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/src/homeassistant/homeassistant/components/recorder/table_managers/event_types.py", line 92, in get_many
+    for event_type_id, event_type in execute_stmt_lambda_element(
+                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        session, find_event_type_ids(missing_chunk), orm_rows=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ):
+    ^
+  File "/usr/src/homeassistant/homeassistant/components/recorder/util.py", line 190, in execute_stmt_lambda_element
+    executed = session.connection().execute(stmt)
+  File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1415, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "/usr/local/lib/python3.13/site-packages/sqlalchemy/sql/lambdas.py", line 594, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1637, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1809, in _execute_context
+    conn = self._revalidate_connection()
+  File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 675, in _revalidate_connection
+    self._invalid_transaction()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 665, in _invalid_transaction
+    raise exc.PendingRollbackError(
+    ...<4 lines>...
+    )
+sqlalchemy.exc.PendingRollbackError: Can't reconnect until invalid transaction is rolled back.  Please rollback() fully before proceeding (Background on this error at: https://sqlalche.me/e/20/8s2b)
+2025-10-31 13:29:14.550 ERROR (Recorder) [homeassistant.components.recorder.core] Error in database connectivity during commit: Error executing query: (MySQLdb.OperationalError) (2002, "Can't connect to server on 'mariadb' (115)")
+(Background on this error at: https://sqlalche.me/e/20/e3q8). (retrying in 3 seconds)

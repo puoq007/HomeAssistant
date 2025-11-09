@@ -1,0 +1,739 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "trace.saved_traces",
+  "data": {
+    "automation.None": [
+      {
+        "extended_dict": {
+          "last_step": "action/0",
+          "run_id": "a9fbd4b766eeb5478d3ec0272423418b",
+          "state": "running",
+          "script_execution": null,
+          "timestamp": {
+            "start": "2025-10-28T09:18:05.701577+00:00",
+            "finish": null
+          },
+          "domain": "automation",
+          "item_id": "None",
+          "trigger": "state of binary_sensor.project_gas_alarm_active",
+          "trace": {
+            "trigger/0": [
+              {
+                "path": "trigger/0",
+                "timestamp": "2025-10-28T09:18:05.701690+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "automation.alert_gas_detected_with_map",
+                    "state": "on",
+                    "attributes": {
+                      "last_triggered": "2025-10-28T09:15:05.297250+00:00",
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "Alert: Gas Detected (with map)"
+                    },
+                    "last_changed": "2025-10-28T06:07:03.365824+00:00",
+                    "last_reported": "2025-10-28T09:15:05.309017+00:00",
+                    "last_updated": "2025-10-28T09:15:05.309017+00:00",
+                    "context": {
+                      "id": "01K8N1JZPH0VPQM8ZRS4DMXYS0",
+                      "parent_id": "01K8N1JZPA5XM76GD196CYKD3H",
+                      "user_id": null
+                    }
+                  },
+                  "trigger": {
+                    "id": "0",
+                    "idx": "0",
+                    "alias": null,
+                    "platform": "state",
+                    "entity_id": "binary_sensor.project_gas_alarm_active",
+                    "from_state": {
+                      "entity_id": "binary_sensor.project_gas_alarm_active",
+                      "state": "unavailable",
+                      "attributes": {
+                        "device_class": "gas",
+                        "friendly_name": "project Gas Alarm Active"
+                      },
+                      "last_changed": "2025-10-28T09:18:05.340962+00:00",
+                      "last_reported": "2025-10-28T09:18:05.340962+00:00",
+                      "last_updated": "2025-10-28T09:18:05.340962+00:00",
+                      "context": {
+                        "id": "01K8N1RFGWRW5X23SNKYQNT73S",
+                        "parent_id": null,
+                        "user_id": null
+                      }
+                    },
+                    "to_state": {
+                      "entity_id": "binary_sensor.project_gas_alarm_active",
+                      "state": "on",
+                      "attributes": {
+                        "device_class": "gas",
+                        "friendly_name": "project Gas Alarm Active"
+                      },
+                      "last_changed": "2025-10-28T09:18:05.693926+00:00",
+                      "last_reported": "2025-10-28T09:18:05.693926+00:00",
+                      "last_updated": "2025-10-28T09:18:05.693926+00:00",
+                      "context": {
+                        "id": "01K8N1RFVXFKRT63QVA6HRRSFG",
+                        "parent_id": null,
+                        "user_id": null
+                      }
+                    },
+                    "for": null,
+                    "attribute": null,
+                    "description": "state of binary_sensor.project_gas_alarm_active"
+                  }
+                }
+              }
+            ],
+            "action/0": [
+              {
+                "path": "action/0",
+                "timestamp": "2025-10-28T09:18:05.701945+00:00",
+                "changed_variables": {
+                  "context": {
+                    "id": "01K8N1RFW5K1GBE26FNR26K060",
+                    "parent_id": "01K8N1RFVXFKRT63QVA6HRRSFG",
+                    "user_id": null
+                  }
+                },
+                "result": {
+                  "params": {
+                    "domain": "notify",
+                    "service": "telegram",
+                    "service_data": {
+                      "message": "\u26a0\ufe0f Gas leak detected in Living Room! \ud83d\udccd https://maps.google.com/?q=13.9125,100.5213\n"
+                    },
+                    "target": {}
+                  },
+                  "running_script": false
+                }
+              }
+            ]
+          },
+          "config": {
+            "alias": "Alert: Gas Detected (with map)",
+            "trigger": [
+              {
+                "platform": "state",
+                "entity_id": "binary_sensor.project_gas_alarm_active",
+                "to": "on"
+              }
+            ],
+            "action": [
+              {
+                "data": {
+                  "message": "\u26a0\ufe0f Gas leak detected in Living Room! \ud83d\udccd https://maps.google.com/?q=13.9125,100.5213\n"
+                },
+                "action": "notify.telegram"
+              }
+            ]
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01K8N1RFW5K1GBE26FNR26K060",
+            "parent_id": "01K8N1RFVXFKRT63QVA6HRRSFG",
+            "user_id": null
+          }
+        },
+        "short_dict": {
+          "last_step": "action/0",
+          "run_id": "a9fbd4b766eeb5478d3ec0272423418b",
+          "state": "running",
+          "script_execution": null,
+          "timestamp": {
+            "start": "2025-10-28T09:18:05.701577+00:00",
+            "finish": null
+          },
+          "domain": "automation",
+          "item_id": "None",
+          "trigger": "state of binary_sensor.project_gas_alarm_active"
+        }
+      },
+      {
+        "extended_dict": {
+          "last_step": "action/0",
+          "run_id": "62187a45c538789830a9522bdee58190",
+          "state": "running",
+          "script_execution": null,
+          "timestamp": {
+            "start": "2025-11-07T06:39:22.197561+00:00",
+            "finish": null
+          },
+          "domain": "automation",
+          "item_id": "None",
+          "trigger": "state of binary_sensor.project_gas_alarm_active",
+          "trace": {
+            "trigger/0": [
+              {
+                "path": "trigger/0",
+                "timestamp": "2025-11-07T06:39:22.199299+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "automation.alert_gas_detected_with_map",
+                    "state": "on",
+                    "attributes": {
+                      "last_triggered": "2025-10-28T09:18:05.701767+00:00",
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "Alert: Gas Detected (with map)"
+                    },
+                    "last_changed": "2025-11-07T06:31:09.395137+00:00",
+                    "last_reported": "2025-11-07T06:31:09.395137+00:00",
+                    "last_updated": "2025-11-07T06:31:09.395137+00:00",
+                    "context": {
+                      "id": "01K9EG60AKANCTY9QS6FT2BXPF",
+                      "parent_id": null,
+                      "user_id": null
+                    }
+                  },
+                  "trigger": {
+                    "id": "0",
+                    "idx": "0",
+                    "alias": null,
+                    "platform": "state",
+                    "entity_id": "binary_sensor.project_gas_alarm_active",
+                    "from_state": {
+                      "entity_id": "binary_sensor.project_gas_alarm_active",
+                      "state": "unavailable",
+                      "attributes": {
+                        "device_class": "gas",
+                        "friendly_name": "project Gas Alarm Active"
+                      },
+                      "last_changed": "2025-11-07T06:31:09.406852+00:00",
+                      "last_reported": "2025-11-07T06:39:21.930115+00:00",
+                      "last_updated": "2025-11-07T06:39:21.930115+00:00",
+                      "context": {
+                        "id": "01K9EGN1AAMFT8JXR4BSHZ0SGT",
+                        "parent_id": null,
+                        "user_id": null
+                      }
+                    },
+                    "to_state": {
+                      "entity_id": "binary_sensor.project_gas_alarm_active",
+                      "state": "on",
+                      "attributes": {
+                        "device_class": "gas",
+                        "friendly_name": "project Gas Alarm Active"
+                      },
+                      "last_changed": "2025-11-07T06:39:22.192124+00:00",
+                      "last_reported": "2025-11-07T06:39:22.192124+00:00",
+                      "last_updated": "2025-11-07T06:39:22.192124+00:00",
+                      "context": {
+                        "id": "01K9EGN1JG71D1TW763JQZQ8HY",
+                        "parent_id": null,
+                        "user_id": null
+                      }
+                    },
+                    "for": null,
+                    "attribute": null,
+                    "description": "state of binary_sensor.project_gas_alarm_active"
+                  }
+                }
+              }
+            ],
+            "action/0": [
+              {
+                "path": "action/0",
+                "timestamp": "2025-11-07T06:39:22.205957+00:00",
+                "changed_variables": {
+                  "context": {
+                    "id": "01K9EGN1JMKM6RCDP4KS0NTTM5",
+                    "parent_id": "01K9EGN1JG71D1TW763JQZQ8HY",
+                    "user_id": null
+                  }
+                },
+                "result": {
+                  "params": {
+                    "domain": "notify",
+                    "service": "telegram",
+                    "service_data": {
+                      "message": "\u26a0\ufe0f Gas leak detected in Living Room! \ud83d\udccd https://maps.google.com/?q=13.9125,100.5213\n"
+                    },
+                    "target": {}
+                  },
+                  "running_script": false
+                }
+              }
+            ]
+          },
+          "config": {
+            "alias": "Alert: Gas Detected (with map)",
+            "trigger": [
+              {
+                "platform": "state",
+                "entity_id": "binary_sensor.project_gas_alarm_active",
+                "to": "on"
+              }
+            ],
+            "action": [
+              {
+                "data": {
+                  "message": "\u26a0\ufe0f Gas leak detected in Living Room! \ud83d\udccd https://maps.google.com/?q=13.9125,100.5213\n"
+                },
+                "action": "notify.telegram"
+              }
+            ]
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01K9EGN1JMKM6RCDP4KS0NTTM5",
+            "parent_id": "01K9EGN1JG71D1TW763JQZQ8HY",
+            "user_id": null
+          }
+        },
+        "short_dict": {
+          "last_step": "action/0",
+          "run_id": "62187a45c538789830a9522bdee58190",
+          "state": "running",
+          "script_execution": null,
+          "timestamp": {
+            "start": "2025-11-07T06:39:22.197561+00:00",
+            "finish": null
+          },
+          "domain": "automation",
+          "item_id": "None",
+          "trigger": "state of binary_sensor.project_gas_alarm_active"
+        }
+      },
+      {
+        "extended_dict": {
+          "last_step": "action/0",
+          "run_id": "860de0d4e4257623e8d08d37dfaef054",
+          "state": "running",
+          "script_execution": null,
+          "timestamp": {
+            "start": "2025-11-07T06:39:39.078151+00:00",
+            "finish": null
+          },
+          "domain": "automation",
+          "item_id": "None",
+          "trigger": "state of binary_sensor.project_gas_alarm_active",
+          "trace": {
+            "trigger/0": [
+              {
+                "path": "trigger/0",
+                "timestamp": "2025-11-07T06:39:39.079293+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "automation.alert_gas_detected_with_map",
+                    "state": "on",
+                    "attributes": {
+                      "last_triggered": "2025-11-07T06:39:22.203585+00:00",
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "Alert: Gas Detected (with map)"
+                    },
+                    "last_changed": "2025-11-07T06:31:09.395137+00:00",
+                    "last_reported": "2025-11-07T06:39:22.218991+00:00",
+                    "last_updated": "2025-11-07T06:39:22.218991+00:00",
+                    "context": {
+                      "id": "01K9EGN1JMKM6RCDP4KS0NTTM5",
+                      "parent_id": "01K9EGN1JG71D1TW763JQZQ8HY",
+                      "user_id": null
+                    }
+                  },
+                  "trigger": {
+                    "id": "0",
+                    "idx": "0",
+                    "alias": null,
+                    "platform": "state",
+                    "entity_id": "binary_sensor.project_gas_alarm_active",
+                    "from_state": {
+                      "entity_id": "binary_sensor.project_gas_alarm_active",
+                      "state": "off",
+                      "attributes": {
+                        "device_class": "gas",
+                        "friendly_name": "project Gas Alarm Active"
+                      },
+                      "last_changed": "2025-11-07T06:39:35.077322+00:00",
+                      "last_reported": "2025-11-07T06:39:35.077322+00:00",
+                      "last_updated": "2025-11-07T06:39:35.077322+00:00",
+                      "context": {
+                        "id": "01K9EGNE55VX8GM790BREATWBQ",
+                        "parent_id": null,
+                        "user_id": null
+                      }
+                    },
+                    "to_state": {
+                      "entity_id": "binary_sensor.project_gas_alarm_active",
+                      "state": "on",
+                      "attributes": {
+                        "device_class": "gas",
+                        "friendly_name": "project Gas Alarm Active"
+                      },
+                      "last_changed": "2025-11-07T06:39:39.076854+00:00",
+                      "last_reported": "2025-11-07T06:39:39.076854+00:00",
+                      "last_updated": "2025-11-07T06:39:39.076854+00:00",
+                      "context": {
+                        "id": "01K9EGNJ246HZQ0DGFM2NFJVE3",
+                        "parent_id": null,
+                        "user_id": null
+                      }
+                    },
+                    "for": null,
+                    "attribute": null,
+                    "description": "state of binary_sensor.project_gas_alarm_active"
+                  }
+                }
+              }
+            ],
+            "action/0": [
+              {
+                "path": "action/0",
+                "timestamp": "2025-11-07T06:39:39.081187+00:00",
+                "changed_variables": {
+                  "context": {
+                    "id": "01K9EGNJ25K1M10QFGCD47NVXG",
+                    "parent_id": "01K9EGNJ246HZQ0DGFM2NFJVE3",
+                    "user_id": null
+                  }
+                },
+                "result": {
+                  "params": {
+                    "domain": "notify",
+                    "service": "telegram",
+                    "service_data": {
+                      "message": "\u26a0\ufe0f Gas leak detected in Living Room! \ud83d\udccd https://maps.google.com/?q=13.9125,100.5213\n"
+                    },
+                    "target": {}
+                  },
+                  "running_script": false
+                }
+              }
+            ]
+          },
+          "config": {
+            "alias": "Alert: Gas Detected (with map)",
+            "trigger": [
+              {
+                "platform": "state",
+                "entity_id": "binary_sensor.project_gas_alarm_active",
+                "to": "on"
+              }
+            ],
+            "action": [
+              {
+                "data": {
+                  "message": "\u26a0\ufe0f Gas leak detected in Living Room! \ud83d\udccd https://maps.google.com/?q=13.9125,100.5213\n"
+                },
+                "action": "notify.telegram"
+              }
+            ]
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01K9EGNJ25K1M10QFGCD47NVXG",
+            "parent_id": "01K9EGNJ246HZQ0DGFM2NFJVE3",
+            "user_id": null
+          }
+        },
+        "short_dict": {
+          "last_step": "action/0",
+          "run_id": "860de0d4e4257623e8d08d37dfaef054",
+          "state": "running",
+          "script_execution": null,
+          "timestamp": {
+            "start": "2025-11-07T06:39:39.078151+00:00",
+            "finish": null
+          },
+          "domain": "automation",
+          "item_id": "None",
+          "trigger": "state of binary_sensor.project_gas_alarm_active"
+        }
+      },
+      {
+        "extended_dict": {
+          "last_step": "action/0",
+          "run_id": "394e46088a83e403a1a1bf7aa7bb9aff",
+          "state": "running",
+          "script_execution": null,
+          "timestamp": {
+            "start": "2025-11-07T06:40:39.732823+00:00",
+            "finish": null
+          },
+          "domain": "automation",
+          "item_id": "None",
+          "trigger": "state of binary_sensor.project_living_room_motion",
+          "trace": {
+            "trigger/0": [
+              {
+                "path": "trigger/0",
+                "timestamp": "2025-11-07T06:40:39.733540+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "automation.alert_motion_detected_with_map",
+                    "state": "on",
+                    "attributes": {
+                      "last_triggered": "2025-10-28T09:18:05.698805+00:00",
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "Alert: Motion Detected (with map)"
+                    },
+                    "last_changed": "2025-11-07T06:31:09.395221+00:00",
+                    "last_reported": "2025-11-07T06:31:09.395221+00:00",
+                    "last_updated": "2025-11-07T06:31:09.395221+00:00",
+                    "context": {
+                      "id": "01K9EG60AKZ10NH7ZXWDCRMZKK",
+                      "parent_id": null,
+                      "user_id": null
+                    }
+                  },
+                  "trigger": {
+                    "id": "0",
+                    "idx": "0",
+                    "alias": null,
+                    "platform": "state",
+                    "entity_id": "binary_sensor.project_living_room_motion",
+                    "from_state": {
+                      "entity_id": "binary_sensor.project_living_room_motion",
+                      "state": "off",
+                      "attributes": {
+                        "device_class": "motion",
+                        "friendly_name": "project Living Room Motion"
+                      },
+                      "last_changed": "2025-11-07T06:39:22.191971+00:00",
+                      "last_reported": "2025-11-07T06:39:22.191971+00:00",
+                      "last_updated": "2025-11-07T06:39:22.191971+00:00",
+                      "context": {
+                        "id": "01K9EGN1JFJD8JBHXSYEVFW5G2",
+                        "parent_id": null,
+                        "user_id": null
+                      }
+                    },
+                    "to_state": {
+                      "entity_id": "binary_sensor.project_living_room_motion",
+                      "state": "on",
+                      "attributes": {
+                        "device_class": "motion",
+                        "friendly_name": "project Living Room Motion"
+                      },
+                      "last_changed": "2025-11-07T06:40:39.731067+00:00",
+                      "last_reported": "2025-11-07T06:40:39.731067+00:00",
+                      "last_updated": "2025-11-07T06:40:39.731067+00:00",
+                      "context": {
+                        "id": "01K9EGQD9KPBVH09FRYJFH786S",
+                        "parent_id": null,
+                        "user_id": null
+                      }
+                    },
+                    "for": null,
+                    "attribute": null,
+                    "description": "state of binary_sensor.project_living_room_motion"
+                  }
+                }
+              }
+            ],
+            "action/0": [
+              {
+                "path": "action/0",
+                "timestamp": "2025-11-07T06:40:39.734946+00:00",
+                "changed_variables": {
+                  "context": {
+                    "id": "01K9EGQD9MYDV3C3ZRVFYKW4YG",
+                    "parent_id": "01K9EGQD9KPBVH09FRYJFH786S",
+                    "user_id": null
+                  }
+                },
+                "result": {
+                  "params": {
+                    "domain": "notify",
+                    "service": "telegram",
+                    "service_data": {
+                      "message": "\ud83d\udeb6 Motion detected in Living Room! \ud83d\udccd https://maps.google.com/?q=13.9125,100.5213\n"
+                    },
+                    "target": {}
+                  },
+                  "running_script": false
+                }
+              }
+            ]
+          },
+          "config": {
+            "alias": "Alert: Motion Detected (with map)",
+            "trigger": [
+              {
+                "platform": "state",
+                "entity_id": "binary_sensor.project_living_room_motion",
+                "to": "on"
+              }
+            ],
+            "action": [
+              {
+                "data": {
+                  "message": "\ud83d\udeb6 Motion detected in Living Room! \ud83d\udccd https://maps.google.com/?q=13.9125,100.5213\n"
+                },
+                "action": "notify.telegram"
+              }
+            ]
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01K9EGQD9MYDV3C3ZRVFYKW4YG",
+            "parent_id": "01K9EGQD9KPBVH09FRYJFH786S",
+            "user_id": null
+          }
+        },
+        "short_dict": {
+          "last_step": "action/0",
+          "run_id": "394e46088a83e403a1a1bf7aa7bb9aff",
+          "state": "running",
+          "script_execution": null,
+          "timestamp": {
+            "start": "2025-11-07T06:40:39.732823+00:00",
+            "finish": null
+          },
+          "domain": "automation",
+          "item_id": "None",
+          "trigger": "state of binary_sensor.project_living_room_motion"
+        }
+      },
+      {
+        "extended_dict": {
+          "last_step": "action/0",
+          "run_id": "c2a9e6fff1cf6d1c9ad25c4c9d5e3d12",
+          "state": "running",
+          "script_execution": null,
+          "timestamp": {
+            "start": "2025-11-07T06:42:08.098205+00:00",
+            "finish": null
+          },
+          "domain": "automation",
+          "item_id": "None",
+          "trigger": "state of binary_sensor.project_living_room_motion",
+          "trace": {
+            "trigger/0": [
+              {
+                "path": "trigger/0",
+                "timestamp": "2025-11-07T06:42:08.100389+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "automation.alert_motion_detected_with_map",
+                    "state": "on",
+                    "attributes": {
+                      "last_triggered": "2025-11-07T06:40:39.734129+00:00",
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "Alert: Motion Detected (with map)"
+                    },
+                    "last_changed": "2025-11-07T06:31:09.395221+00:00",
+                    "last_reported": "2025-11-07T06:40:40.449526+00:00",
+                    "last_updated": "2025-11-07T06:40:40.449526+00:00",
+                    "context": {
+                      "id": "01K9EGQD9MYDV3C3ZRVFYKW4YG",
+                      "parent_id": "01K9EGQD9KPBVH09FRYJFH786S",
+                      "user_id": null
+                    }
+                  },
+                  "trigger": {
+                    "id": "0",
+                    "idx": "0",
+                    "alias": null,
+                    "platform": "state",
+                    "entity_id": "binary_sensor.project_living_room_motion",
+                    "from_state": {
+                      "entity_id": "binary_sensor.project_living_room_motion",
+                      "state": "off",
+                      "attributes": {
+                        "device_class": "motion",
+                        "friendly_name": "project Living Room Motion"
+                      },
+                      "last_changed": "2025-11-07T06:40:46.889425+00:00",
+                      "last_reported": "2025-11-07T06:40:46.889425+00:00",
+                      "last_updated": "2025-11-07T06:40:46.889425+00:00",
+                      "context": {
+                        "id": "01K9EGQM99BGRD6FTBSBPDW6HE",
+                        "parent_id": null,
+                        "user_id": null
+                      }
+                    },
+                    "to_state": {
+                      "entity_id": "binary_sensor.project_living_room_motion",
+                      "state": "on",
+                      "attributes": {
+                        "device_class": "motion",
+                        "friendly_name": "project Living Room Motion"
+                      },
+                      "last_changed": "2025-11-07T06:42:08.094517+00:00",
+                      "last_reported": "2025-11-07T06:42:08.094517+00:00",
+                      "last_updated": "2025-11-07T06:42:08.094517+00:00",
+                      "context": {
+                        "id": "01K9EGT3JYM5PRJ971RAKMSVD3",
+                        "parent_id": null,
+                        "user_id": null
+                      }
+                    },
+                    "for": null,
+                    "attribute": null,
+                    "description": "state of binary_sensor.project_living_room_motion"
+                  }
+                }
+              }
+            ],
+            "action/0": [
+              {
+                "path": "action/0",
+                "timestamp": "2025-11-07T06:42:08.105255+00:00",
+                "changed_variables": {
+                  "context": {
+                    "id": "01K9EGT3K173Z8SD69GP0XAVP3",
+                    "parent_id": "01K9EGT3JYM5PRJ971RAKMSVD3",
+                    "user_id": null
+                  }
+                },
+                "result": {
+                  "params": {
+                    "domain": "notify",
+                    "service": "telegram",
+                    "service_data": {
+                      "message": "\ud83d\udeb6 Motion detected in Living Room! \ud83d\udccd https://maps.google.com/?q=13.9125,100.5213\n"
+                    },
+                    "target": {}
+                  },
+                  "running_script": false
+                }
+              }
+            ]
+          },
+          "config": {
+            "alias": "Alert: Motion Detected (with map)",
+            "trigger": [
+              {
+                "platform": "state",
+                "entity_id": "binary_sensor.project_living_room_motion",
+                "to": "on"
+              }
+            ],
+            "action": [
+              {
+                "data": {
+                  "message": "\ud83d\udeb6 Motion detected in Living Room! \ud83d\udccd https://maps.google.com/?q=13.9125,100.5213\n"
+                },
+                "action": "notify.telegram"
+              }
+            ]
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01K9EGT3K173Z8SD69GP0XAVP3",
+            "parent_id": "01K9EGT3JYM5PRJ971RAKMSVD3",
+            "user_id": null
+          }
+        },
+        "short_dict": {
+          "last_step": "action/0",
+          "run_id": "c2a9e6fff1cf6d1c9ad25c4c9d5e3d12",
+          "state": "running",
+          "script_execution": null,
+          "timestamp": {
+            "start": "2025-11-07T06:42:08.098205+00:00",
+            "finish": null
+          },
+          "domain": "automation",
+          "item_id": "None",
+          "trigger": "state of binary_sensor.project_living_room_motion"
+        }
+      }
+    ]
+  }
+}

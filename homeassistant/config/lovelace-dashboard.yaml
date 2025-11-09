@@ -1,0 +1,136 @@
+title: "🏠 Smart Home Dashboard"
+views:
+  # -------------------------------------------------
+  # 🌡️ MAIN DASHBOARD
+  # -------------------------------------------------
+  - title: "Smart Home Overview"
+    icon: mdi:home-analytics
+    path: overview
+    cards:
+      # 🔹 Sensor Overview
+      - type: entities
+        title: "📊 Sensor Data Overview"
+        show_header_toggle: false
+        entities:
+          - entity: sensor.project_living_room_temperature
+            name: "🌡️ Temperature"
+            icon: mdi:thermometer
+          - entity: sensor.project_living_room_humidity
+            name: "💧 Humidity"
+            icon: mdi:water-percent
+          - entity: sensor.project_mq_2_gas_level
+            name: "💨 Gas Level"
+            icon: mdi:molecule-co2
+          - entity: sensor.project_ldr_light_level
+            name: "💡 Light Intensity"
+            icon: mdi:lightbulb-on
+          - entity: binary_sensor.project_living_room_motion
+            name: "🚶 Motion Detected"
+            icon: mdi:motion-sensor
+          - entity: binary_sensor.project_gas_alarm_active
+            name: "⚠️ Gas Alarm Status"
+            icon: mdi:alert
+
+      # 🔹 Device Control Panel
+      - type: grid
+        title: "🎛️ Device Controls"
+        columns: 3
+        cards:
+          - type: button
+            entity: switch.project_living_room_fan
+            name: "Fan"
+            icon: mdi:fan
+            show_state: true
+            tap_action: { action: toggle }
+          - type: button
+            entity: switch.project_active_buzzer
+            name: "Buzzer"
+            icon: mdi:volume-high
+            show_state: true
+            tap_action: { action: toggle }
+          - type: button
+            entity: switch.project_indicator_led
+            name: "LED"
+            icon: mdi:led-on
+            show_state: true
+            tap_action: { action: toggle }
+
+      # 🔹 Environment Trends
+      - type: history-graph
+        title: "📈 Environment Trends (Past 12 Hours)"
+        hours_to_show: 12
+        refresh_interval: 30
+        entities:
+          - entity: sensor.project_living_room_temperature
+            name: "Temperature (°C)"
+          - entity: sensor.project_living_room_humidity
+            name: "Humidity (%)"
+          - entity: sensor.project_mq_2_gas_level
+            name: "Gas (V)"
+          - entity: sensor.project_ldr_light_level
+            name: "Light (V)"
+
+
+  # -------------------------------------------------
+  # 🗺️ SENSOR MAP PAGE
+  # -------------------------------------------------
+  - title: "Sensor Locations"
+    icon: mdi:map-marker-radius
+    path: map
+    cards:
+      - type: map
+        title: "🗺️ Smart IoT Sensor Map"
+        aspect_ratio: 24
+        default_zoom: 16
+        dark_mode: true
+        entities:
+          - entity: sensor.project_dht11_latitude
+            name: "🌡️ DHT11 Temperature Sensor"
+          - entity: sensor.project_mq_2_latitude
+            name: "💨 MQ-2 Gas Sensor"
+          - entity: sensor.project_ldr_latitude
+            name: "💡 LDR Light Sensor"
+          - entity: sensor.project_motion_latitude
+            name: "🚶 Motion Sensor"
+
+      - type: markdown
+        title: "📍 Sensor Position Summary"
+        content: |
+          **All sensors include GPS coordinates for precise mapping:**
+
+          - 🌡️ **DHT11** → Measures Temperature & Humidity  
+          - 💨 **MQ-2** → Detects Gas levels (Smoke, LPG, etc.)  
+          - 💡 **LDR** → Monitors light intensity in the room  
+          - 🚶 **PIR Sensor** → Detects motion for security control  
+
+          🧭 Map uses real coordinates from each sensor (latitude + longitude) sent via ESPHome.
+
+
+  # -------------------------------------------------
+  # 📜 ALERT HISTORY PAGE
+  # -------------------------------------------------
+  - title: "Alert History"
+    icon: mdi:history
+    path: history
+    cards:
+      - type: logbook
+        title: "🧾 Recent Events Log"
+        entities:
+          - binary_sensor.project_gas_alarm_active
+          - binary_sensor.project_living_room_motion
+          - switch.project_living_room_fan
+          - switch.project_active_buzzer
+          - sensor.project_living_room_temperature
+
+      - type: history-graph
+        title: "📉 Sensor Trends (Last 24 Hours)"
+        hours_to_show: 24
+        entities:
+          - entity: sensor.project_living_room_temperature
+            name: "Temperature (°C)"
+          - entity: sensor.project_living_room_humidity
+            name: "Humidity (%)"
+          - entity: sensor.project_mq_2_gas_level
+            name: "Gas Level (V)"
+          - entity: sensor.project_ldr_light_level
+            name: "Light Level (V)"

@@ -1,0 +1,38 @@
+# 🚨 Gas alert → แค่แจ้งเตือน (บัซเซอร์/LED ควบคุมใน ESP แล้ว)
+- alias: "Alert: Gas Detected (with map)"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.project_gas_alarm_active
+      to: "on"
+  action:
+    - service: notify.telegram
+      data:
+        message: >
+          ⚠️ Gas leak detected in Living Room!
+          📍 https://maps.google.com/?q=13.9125,100.5213
+
+# 🚶 Motion alert → แจ้งเตือนอย่างเดียว (ไม่ยุ่งกับ LED)
+- alias: "Alert: Motion Detected (with map)"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.project_living_room_motion
+      to: "on"
+  action:
+    - service: notify.telegram
+      data:
+        message: >
+          🚶 Motion detected in Living Room!
+          📍 https://maps.google.com/?q=13.9125,100.5213
+
+# 🌡 Temp > 32°C → แจ้งเตือนอย่างเดียว (การเปิดพัดลมอัตโนมัติอยู่ใน ESP)
+- alias: "Alert: High Temperature (with map)"
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.project_living_room_temperature
+      above: 32
+  action:
+    - service: notify.telegram
+      data:
+        message: >
+          🌡 High temperature detected: {{ states('sensor.project_living_room_temperature') }} °C
+          📍 https://maps.google.com/?q=13.9125,100.5213

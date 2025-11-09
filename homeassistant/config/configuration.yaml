@@ -1,0 +1,60 @@
+
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+lovelace:
+  mode: yaml
+  resources:
+    - url: /hacsfiles/lovelace-card-mod/card-mod.js
+      type: module
+  dashboards:
+    smart-home-dashboard:
+      mode: yaml
+      title: "Smart Home Dashboard"
+      filename: lovelace-dashboard.yaml
+      icon: mdi:home-assistant
+
+# ==============================
+# 🔔 Telegram Notification Setup
+# ==============================
+telegram_bot:
+  - platform: polling
+    api_key: "8032886455:AAGzwc0ZlCV9ZQK8o9RlcPaEPv3RG64OFQ4"   # ← ใช้ Token จาก BotFather
+    allowed_chat_ids:
+      - 7591152393   # ← Chat ID ของคุณ
+
+notify:
+  - name: telegram
+    platform: telegram
+    chat_id: 7591152393
+
+
+recorder:
+  db_url: mysql://admin:Home1122@mariadb/homeassistant?charset=utf8mb4
+  commit_interval: 2  # บันทึกทุก 2 นาที
+  auto_purge: true
+  purge_keep_days: 7   # เก็บ log 7 วัน 
+
+history:
+  include:
+    domains:
+      - sensor
+      - binary_sensor
+      - fan
+      - switch
+
+logbook:
+  include:
+    domains:
+      - binary_sensor
+      - fan
+      - switch
+  

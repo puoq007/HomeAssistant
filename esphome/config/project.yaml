@@ -1,0 +1,238 @@
+esphome:
+  name: project
+  friendly_name: project
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "7XjsfolDsvbRqmP20dTp9oYv5dp2BYwaLB5RNFDAW3Q="
+
+ota:
+  - platform: esphome
+    password: "73de5addc9190056f51825b32614b0ce"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Project Fallback Hotspot"
+    password: "RxlgMrVgR1kd"
+
+captive_portal:
+  
+
+
+# =====================================================
+# 🌡️ Sensors (All sensors + GPS for each)
+# =====================================================
+sensor:
+  # 🌡️ DHT11
+  - platform: dht
+    pin: GPIO4
+    model: DHT11
+    temperature:
+      name: "Living Room Temperature"
+      id: temp_living
+      accuracy_decimals: 1
+    humidity:
+      name: "Living Room Humidity"
+      id: hum_living
+      accuracy_decimals: 1
+    update_interval: 10s
+
+  # 🌍 GPS for DHT11
+  - platform: template
+    name: "DHT11 Latitude"
+    lambda: |-
+      return 20.04564747099501;
+  - platform: template
+    name: "DHT11 Longitude"
+    lambda: |-
+      return 99.89347267224146;
+
+  # 💨 MQ-2 Gas Sensor
+  - platform: adc
+    pin: GPIO34
+    name: "MQ-2 Gas Level"
+    id: mq2_raw
+    attenuation: 12db
+    update_interval: 2s
+    unit_of_measurement: "V"
+    filters:
+      - sliding_window_moving_average:
+          window_size: 10
+          send_every: 1
+          send_first_at: 1
+    on_value_range:
+      - above: 0.40
+        then:
+          - switch.turn_on: buzzer_switch
+      - below: 0.39
+        then:
+          - switch.turn_off: buzzer_switch
+
+  # 🌍 GPS for MQ-2
+  - platform: template
+    name: "MQ-2 Latitude"
+    lambda: |-
+      return 20.0443897697488;
+  - platform: template
+    name: "MQ-2 Longitude"
+    lambda: |-
+      return 99.89357111349085;
+
+  # 💡 LDR Light Sensor
+  - platform: adc
+    pin: GPIO35
+    name: "LDR Light Level"
+    id: ldr_raw
+    attenuation: 12db
+    update_interval: 2s
+    unit_of_measurement: "V"
+    filters:
+      - sliding_window_moving_average:
+          window_size: 10
+          send_every: 1
+          send_first_at: 1
+    on_value_range:
+      - above: 1.5
+        then:
+          - switch.turn_on: indicator_led
+      - below: 1.4
+        then:
+          - switch.turn_off: indicator_led
+
+  # 🌍 GPS for LDR
+  - platform: template
+    name: "LDR Latitude"
+    lambda: |-
+      return 20.046707826314767;
+  - platform: template
+    name: "LDR Longitude"
+    lambda: |-
+      return 99.89335525147949;
+
+  # 🌍 GPS for Motion Sensor
+  - platform: template
+    name: "Motion Latitude"
+    lambda: |-
+      return 20.04397815801538;
+  - platform: template
+    name: "Motion Longitude"
+    lambda: |-
+      return 99.89428656243828;
+
+
+# =====================================================
+# 🚶 Binary Sensors
+# =====================================================
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO14
+      mode:
+        input: true
+        pullup: false
+    name: "Living Room Motion"
+    device_class: motion
+    id: pir_motion
+    filters:
+      - delayed_off: 5s
+
+  - platform: template
+    name: "Gas Alarm Active"
+    id: gas_alarm
+    device_class: gas
+    lambda: |-
+      return (!isnan(id(mq2_raw).state) && id(mq2_raw).state > 0.40);
+
+  - platform: template
+    name: "Auto Fan (Temp > 30°C)"
+    id: auto_fan_switch
+    device_class: running
+    lambda: |-
+      return id(auto_fan_enabled);
+    on_press:
+      - lambda: |-
+          id(auto_fan_enabled) = !id(auto_fan_enabled);
+          if (id(auto_fan_enabled)) {
+            ESP_LOGI("main", "Auto Fan Enabled");
+          } else {
+            ESP_LOGI("main", "Auto Fan Disabled");
+          }
+
+
+# =====================================================
+# 💾 Globals
+# =====================================================
+globals:
+  - id: auto_fan_enabled
+    type: bool
+    restore_value: yes
+    initial_value: 'false'
+
+
+# =====================================================
+# ⚙️ Outputs / Actuators
+# =====================================================
+switch:
+  - platform: gpio
+    pin:
+      number: GPIO25
+      mode: OUTPUT
+      inverted: true
+    name: "Active Buzzer"
+    id: buzzer_switch
+    restore_mode: ALWAYS_OFF
+
+  - platform: gpio
+    pin: GPIO26
+    name: "Indicator LED"
+    id: indicator_led
+    restore_mode: ALWAYS_OFF
+
+  - platform: gpio
+    pin: GPIO23
+    name: "Living Room Fan"
+    id: living_fan
+    restore_mode: ALWAYS_OFF
+
+
+# =====================================================
+# 🧾 Text Sensor
+# =====================================================
+text_sensor:
+  - platform: version
+    name: "ESP32 Firmware Version"
+
+
+# =====================================================
+# 🤖 Automation Logic
+# =====================================================
+interval:
+  - interval: 5s
+    then:
+      - if:
+          condition:
+            lambda: 'return id(auto_fan_enabled);'
+          then:
+            - if:
+                condition:
+                  lambda: 'return id(temp_living).has_state() && id(temp_living).state > 30.0;'
+                then:
+                  - switch.turn_on: living_fan
+            - if:
+                condition:
+                  lambda: 'return id(temp_living).has_state() && id(temp_living).state < 29.0;'
+                then:
+                  - switch.turn_off: living_fan

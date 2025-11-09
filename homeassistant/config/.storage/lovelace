@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace",
+  "data": {
+    "config": {
+      "views": [
+        {
+          "title": "HOMEBUBU",
+          "cards": [
+            {
+              "type": "weather-forecast",
+              "entity": "weather.forecast_home",
+              "show_forecast": false
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "weather.forecast_home"
+                },
+                {
+                  "entity": "binary_sensor.project_gas_alarm",
+                  "name": "Gas Alarm"
+                },
+                {
+                  "entity": "sensor.project_ldr_light_raw",
+                  "name": "LDR Light (raw)"
+                },
+                {
+                  "entity": "sensor.project_living_room_humidity",
+                  "name": "Living Room Humidity"
+                },
+                {
+                  "entity": "binary_sensor.project_living_room_motion",
+                  "name": "Living Room Motion"
+                },
+                {
+                  "entity": "sensor.project_living_room_temperature",
+                  "name": "Living Room Temperature"
+                },
+                {
+                  "entity": "sensor.temperature_mq_2_gas_analog",
+                  "name": "MQ-2 Gas Analog"
+                }
+              ],
+              "title": "project",
+              "state_color": false,
+              "show_header_toggle": false
+            }
+          ],
+          "badges": [
+            {
+              "type": "entity",
+              "entity": "weather.forecast_home"
+            }
+          ],
+          "type": "masonry"
+        },
+        {
+          "type": "sections",
+          "path": "",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "New section"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
