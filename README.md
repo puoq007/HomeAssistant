@@ -1,121 +1,87 @@
-# 🏠 Home Assistant Smart Home Project (Docker + ESPHome + MQTT)
+# 🏠 Home Assistant Smart Home Project (Docker Environment)
 
-This repository contains my **final-year smart home project** built with  
-**Home Assistant**, **Docker Compose**, **ESPHome**, **MQTT (Mosquitto)**, **MariaDB**, and **phpMyAdmin**,  
-running on my local network with ESP32-based sensor nodes.
+[![Home Assistant](https://img.shields.io/badge/Home%20Assistant-Core-41BDF5?logo=homeassistant&logoColor=white)](https://www.home-assistant.io/)
+[![ESPHome](https://img.shields.io/badge/ESPHome-Devices-000000?logo=esphome&logoColor=white)](https://esphome.io/)
+[![MQTT](https://img.shields.io/badge/MQTT-Mosquitto-6001D2?logo=eclipsemosquitto&logoColor=white)](https://mosquitto.org/)
+[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+[![MariaDB](https://img.shields.io/badge/MariaDB-Database-003545?logo=mariadb&logoColor=white)](https://mariadb.org/)
+[![phpMyAdmin](https://img.shields.io/badge/phpMyAdmin-DB%20UI-6C78AF?logo=phpmyadmin&logoColor=white)](https://www.phpmyadmin.net/)
 
-> 🇹🇭 โปรเจคนี้เป็นระบบ Smart Home สำหรับฝึกใช้งาน Home Assistant + ESPHome + Docker + Sensor หลายตัว  
-> ใช้ในรายวิชา / โปรเจควิศวกรรมคอมพิวเตอร์ มหาวิทยาลัยแม่ฟ้าหลวง (MFU)
+This repository focuses on building a reproducible, modular, and scalable **Docker-based environment** for running Home Assistant and related services.  
+It is part of a larger initiative to create educational materials and a practical smart-home system that beginners — even those with **zero hardware knowledge** — can use to start learning IoT, sensors, automation, and real-world smart-home deployment.
+
+---
+
+## 📘 Project Purpose / วัตถุประสงค์ของโปรเจค
+
+This project was created as part of my learning and final-year work to explore real-world smart-home development using **Home Assistant**, **Docker**, **MQTT**, and **ESPHome**.
+
+🇹🇭 **เหตุผลในการสร้างโปรเจคนี้:**
+
+- เพื่อทำ **สื่อการเรียนการสอน** สำหรับ *ผู้เริ่มต้น (Beginner)* ที่ “ไม่มีพื้นฐานฮาร์ดแวร์เลย” และอยากเริ่มต้นจากศูนย์  
+- เพื่อให้เข้าใจการทำงานของระบบ **IoT และ Smart Home** ตั้งแต่ระดับเซ็นเซอร์ → การส่งข้อมูล → ระบบอัตโนมัติ  
+- เพื่อใช้เป็นตัวอย่างสำหรับผู้ที่สนใจสร้าง **โปรเจคที่ใหญ่ขึ้น** เช่น การควบคุมไฟบ้าน, ระบบแจ้งเตือน, ระบบตรวจวัดสภาพแวดล้อม  
+- เพื่อเป็นพื้นฐานให้ผู้เรียนสามารถนำไป **พัฒนาอุปกรณ์จริง** และติดตั้งในบ้านของตัวเองได้  
+- เพื่อเป็นส่วนหนึ่งของการจัดทำโปรเจคของมหาวิทยาลัย และส่งมอบให้กับ **อาจารย์ที่ปรึกษาโปรเจค**  
+- เพื่อพัฒนาระบบ Smart Home ที่สามารถนำไปใช้งานในบ้านจริงได้ในอนาคต  
+
+This README documents **only the Docker environment** that powers the system.
 
 ---
 
 ## 📚 Table of Contents
 
-1. [Project Overview](#-project-overview)
-2. [Key Features](#-key-features)
-3. [System Architecture](#-system-architecture)
-4. [Tech Stack](#-tech-stack)
-5. [Hardware Used](#-hardware-used)
-6. [Repository Structure](#-repository-structure)
-7. [Prerequisites](#-prerequisites)
-8. [Installation & Setup](#-installation--setup)
-9. [Docker Compose Stack](#-docker-compose-stack)
-10. [Home Assistant Configuration](#-home-assistant-configuration)
-11. [ESPHome Nodes & YAML](#-esphome-nodes--yaml)
-12. [Automations](#-automations)
-13. [Dashboards](#-dashboards)
-14. [Troubleshooting](#-troubleshooting)
-15. [Future Improvements](#-future-improvements)
-16. [Credits](#-credits)
+1. [Docker Compose Overview / ภาพรวมระบบ Docker](#-docker-compose-overview--ภาพรวมระบบ-docker)  
+2. [System Diagram / แผนภาพระบบ](#-system-diagram--แผนภาพระบบ-docker-architecture)  
+3. [File Structure / โครงสร้างไฟล์](#-file-structure--โครงสร้างไฟล์-docker-only)  
+4. [Run Order / ลำดับการรันระบบ](#-run-order-แนะนำลำดับการรันระบบ)  
+5. [Debug Commands / คำสั่ง Debug](#-debug-commands--คำสั่ง-debug-สำคัญ)  
+6. [Service URLs / จุดเข้าใช้งานระบบ](#-service-urls--จุดเข้าใช้งานระบบ)  
+7. [Cleanup / การลบ Container และ Volume](#-cleanup--การลบ-container--volume)
 
 ---
 
-## 🧾 Project Overview
+## 🐳 Docker Compose Overview / ภาพรวมระบบ Docker
 
-This project simulates a **real home automation environment** where multiple sensors and actuators  
-are connected to **ESP32** boards and integrated into **Home Assistant** through **ESPHome** & **MQTT**.
+This system uses a multi-container Docker stack to run the complete smart-home environment:
 
-Main objectives:
+- **Home Assistant** – core automation platform (ระบบหลักสำหรับ Automation และ Dashboard)  
+- **MariaDB** – database for Recorder/History (เก็บประวัติและ Log ระยะยาว)  
+- **Mosquitto MQTT Broker** – message broker สำหรับรับ/ส่งข้อมูลจาก ESP32 ผ่าน MQTT  
+- **ESPHome Dashboard** – สำหรับจัดการ ESP32, ดูสถานะ และ OTA firmware  
+- **phpMyAdmin** – UI for database management (จัดการฐานข้อมูลผ่านเว็บเบราว์เซอร์)  
 
-- Monitor **temperature, humidity, gas, smoke, light intensity, and motion**
-- Control **fan (PWM)** and **LED** based on sensor values and automations
-- Store historical data in **MariaDB**
-- Visualize data and controls on **Home Assistant Dashboards**
-- Practice real DevOps-style deployment using **Docker Compose**
-
-> 🇹🇭 เป้าหมายคือสร้างระบบ Smart Home ที่ใช้งานได้จริง + เหมาะกับการอธิบายให้กรรมการ/อาจารย์ดูว่า  
-> เราเข้าใจ IoT, Docker, Database, Automation, และระบบ Home Assistant แบบ End-to-End
+🇹🇭 ส่วน Docker นี้ทำหน้าที่เป็น “โครงสร้างพื้นฐาน (Infrastructure)” ให้กับระบบ Smart Home ทั้งหมด  
+โดยออกแบบให้ **รันซ้ำได้ง่าย (reproducible)**, **ขยายได้ (scalable)** และ **ย้ายเครื่องได้สะดวก** ด้วย Docker Compose เพียงไฟล์เดียว
 
 ---
 
-## ✨ Key Features
-
-- 🌡 **Environmental Monitoring**
-  - Temperature & humidity (DHT11)
-  - Gas & smoke (MQ-2)
-  - Light level (LDR)
-  - Motion detection (PIR)
-
-- 💡 **Actuators & Controls**
-  - Fan with **PWM speed control**
-  - LED indicator / room light
-
-- 🤖 **Smart Automations**
-  - Auto fan ON/OFF when temperature crosses a threshold
-  - Gas alarm (buzzer/notification) when MQ-2 detects high gas
-  - Auto LED ON when room is dark + motion detected
-  - Notifications to Home Assistant app / mobile
-
-- 🐳 **Containerized Stack**
-  - One `docker-compose.yaml` to start the whole system
-  - MariaDB as a dedicated Recorder backend
-  - phpMyAdmin for DB inspection
-  - Mosquitto MQTT broker
-  - ESPHome dashboard for managing ESP32 nodes
-
----
-
-## 🏗 System Architecture
-
-**Logical architecture:**
+## 🧭 System Diagram / แผนภาพระบบ (Docker Architecture)
 
 ```text
-        +---------------------+
-        |   ESP32 Node #1     |
-        |  - DHT11            |
-        |  - Fan (PWM)        |
-        +----------+----------+
-                   |
-        +----------v----------+
-        |   ESP32 Node #2     |
-        |  - MQ-2 (Gas)       |
-        |  - Buzzer / LED     |
-        +----------+----------+
-                   |
-        +----------v----------+
-        |   ESP32 Node #3     |
-        |  - LDR (Light)      |
-        |  - PIR (Motion)     |
-        +----------+----------+
-                   |
-             (Wi-Fi / MQTT)
-                   |
-         +---------v----------+
-         |   Mosquitto MQTT   |
-         +---------+----------+
-                   |
-       +-----------v---------------------------+
-       |            Home Assistant             |
-       | - Integrations / ESPHome / MQTT       |
-       | - Automations & Scripts               |
-       | - Dashboards                          |
-       +-----------+---------------------------+
-                   |
-         +---------v----------+
-         |      MariaDB       |
-         | (History / Logs)   |
-         +---------+----------+
-                   |
-         +---------v----------+
-         |     phpMyAdmin     |
-         +--------------------+
+                +----------------------+
+                |      ESP32 Nodes     |
+                |  (MQTT Publishers)   |
+                +----------+-----------+
+                           |
+                           | Wi-Fi / TCP
+                           v
+                 +---------+---------+
+                 |    Mosquitto     |
+                 |   MQTT Broker    |
+                 +---------+---------+
+                           |
+        +------------------+-------------------+
+        |                                      |
+        v                                      v
++---------------+                +---------------------------+
+| Home Assistant| <----API-----> |         ESPHome           |
+|  Core System  |                |  Dashboard & OTA Manager  |
++-------+-------+                +-------------+-------------+
+        |                                      |
+        | Recorder / History                   |
+        v                                      v
+ +------+---------------+         +---------------------------+
+ |        MariaDB       |         |        phpMyAdmin         |
+ |  Long-term Storage   |         |   DB Web Management UI    |
+ +----------------------+         +---------------------------+
