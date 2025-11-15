@@ -85,3 +85,5 @@ This system uses a multi-container Docker stack to run the complete smart-home e
  |        MariaDB       |         |        phpMyAdmin         |
  |  Long-term Storage   |         |   DB Web Management UI    |
  +----------------------+         +---------------------------+
+
+แผนภาพนี้แสดงลำดับการไหลของข้อมูลจาก ESP32 → MQTT → Home Assistant → ฐานข้อมูลโดย Docker จะเป็นตัวจัดการทุก Service ให้ทำงานอยู่บนเครื่องเดียวกัน (หรือเครื่องในเครือข่ายเดียวกัน)
