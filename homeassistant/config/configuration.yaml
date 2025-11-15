@@ -27,14 +27,14 @@ lovelace:
 # ==============================
 telegram_bot:
   - platform: polling
-    api_key: "8032886455:AAGzwc0ZlCV9ZQK8o9RlcPaEPv3RG64OFQ4"   # ← ใช้ Token จาก BotFather
+    api_key: "xxxxxxxxxxxxxxxxxxxxxx"   # ← ใช้ Token จาก BotFather
     allowed_chat_ids:
-      - 7591152393   # ← Chat ID ของคุณ
+      - 99999999   # ← Chat ID ของคุณ
 
 notify:
   - name: telegram
     platform: telegram
-    chat_id: 7591152393
+    chat_id: 99999999 # ← Chat ID ของคุณ
 
 
 recorder:
